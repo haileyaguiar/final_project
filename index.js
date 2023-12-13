@@ -95,10 +95,6 @@ app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-// Application serves static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-
   //create account
   app.post('/createaccount', async (req, res) => {
     // Insert data into the userstorage table
