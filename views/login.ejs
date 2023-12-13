@@ -64,6 +64,14 @@
 
             <button type="submit">Login</button>
         </form>
+        <!-- Add this section after the form on your EJS page -->
+        <% if (locals.error) { %>
+            <div style="color: red; margin-top: 10px;">
+                <%= locals.error %>
+            </div>
+        <% } %>
+
+        <p>Don't have an account? <a href="/signup">Sign up</a></p>
     </div>
 </body>
 </html>
