@@ -83,7 +83,9 @@ app.post('/newpost', async (req, res) => {
         PetReward: req.body.PetReward,
         LastSeenZip: req.body.LastSeenZip,
         LastSeenDate: req.body.LastSeenDate,
-        LastSeenDesc: req.body.LastSeenDesc//the pet ID and the owner ID, ownerfirstname, ownerphone need to be figured out  
+        LastSeenDesc: req.body.LastSeenDesc,
+        OwnerFirstName: req.body.OwnerFirstName,
+        OwnerPhone: req.body.OwnerPhone//the pet ID and the owner ID need to be figured out  
       });
     res.send('Post created successfully!');
 });
