@@ -1,10 +1,11 @@
 {
   "name": "final_project",
   "version": "1.0.0",
-  "description": "",
+  "description": "our final project for 403",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +18,6 @@
     "node": "^21.2.0",
     "pg": "^8.11.3",
     "statuses": "^1.5.0"
-  }
+  },
+  "devDependencies": {}
 }
