@@ -92,7 +92,7 @@ app.post('/newpost', async (req, res) => {
         LastSeenDate: req.body.LastSeenDate,
         LastSeenDesc: req.body.LastSeenDesc,
         OwnerFirstName: req.body.OwnerFirstName,
-        OwnerPhone: req.body.OwnerPhone//the pet ID and the owner ID, need to be figured out  
+        OwnerPhone: req.body.OwnerPhone//the pet ID and the owner ID need to be figured out  
       });
     res.send('Post created successfully!');
 });
