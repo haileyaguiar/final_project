@@ -1,15 +1,22 @@
 const express = require('express');
 const session = require('express-session');
-const knex = require('knex')({
+require('dotenv').config()
+let knex = require('knex')({
     client: 'pg',
     connection: {
-        host: process.env.RDS_HOSTNAME || 'eventual enpoint',
-        user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || '30Baseballs',
-        database: process.env.RDS_DB_NAME || 'findingpets',
-        port: process.env.RDS_PORT || 5432
+        host: process.env.RDS_HOSTNAME ,
+        user: process.env.RDS_USERNAME ,
+        password: process.env.RDS_PASSWORD ,
+        database: process.env.RDS_DB_NAME,
+        port: process.env.RDS_PORT || 5432,
+        ssl: process.env.DB_SSL ? {rejectedUnauthorized: false} : false
     }
 });
+
+knex.raw('SELECT 1')
+  .then(() => console.log('Database connection successful'))
+  .catch(err => console.error('Database connection failed', err));
+
 
 const app = express();
 const path = require('path');
@@ -28,9 +35,9 @@ app.get('/home', (req, res) => {
 
 // Database page
 app.get('/database', (req, res) => {
-    knex.select().from("findingpetsdb").then(findingpetsdb => {
-        res.render('report', {fulldata: findingpetsdb});
-    });
+    // knex.select().from("findingpetsdb").then(findingpetsdb => {
+    //     res.render('report', {fulldata: findingpetsdb});
+    // });
 });
 
 // Info page
@@ -94,8 +101,8 @@ app.post('/newpost', async (req, res) => {
 // PetofDay page
 app.get('/petofday', async (req, res) => {
     try {
-        const rows = await knex('pets').select('*').orderByRaw('RANDOM()').limit(1); // Adjust for your table
-        const petOfTheDay = rows[0];
+        // const rows = await knex('pets').select('*').orderByRaw('RANDOM()').limit(1); // Adjust for your table
+        const petOfTheDay = 0;
         res.render('petofday', { pet: petOfTheDay });
     } catch (error) {
         console.error(error);
@@ -110,10 +117,10 @@ app.get('/signup', (req, res) => {
 });
 
 app.post('/createaccount', async (req, res) => {
-    await knex('userstorage').insert({
-        Username: req.body.username,
-        Password: req.body.password
-    });
+    // await knex('userstorage').insert({
+    //     Username: req.body.username,
+    //     Password: req.body.password
+    // });
     res.send('Account created successfully!');
 });
 
