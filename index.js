@@ -1,22 +1,40 @@
 const express = require('express');
-const app = express(); //makes a new express application for the website
-let path = require('path'); //makes it easier to find files
-const port = process.env.PORT || 8080; //specifies the port to listen on
-app.set('view engine', 'ejs');
-app.use(express.urlencoded({extended:true})) //this is how we're parsing and matching of data. 
-app.set('views', path.join(__dirname, '/views'));
-
-
+const session = require('express-session');
 const knex = require('knex')({
     client: 'pg',
     connection: {
-        host:'localhost',
+        host: 'localhost',
         user: 'postgres',
         password: 'admin',
         database: 'bucket_list',
         port: 5432
     }
-})
+});
+
+const app = express();
+const path = require('path');
+const port = process.env.PORT || 8080;
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// Session configuration
+app.use(session({
+    secret: 'your_secret_key', // replace with a real secret key
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Authentication middleware
+function ensureLoggedIn(req, res, next) {
+    if (req.session.loggedIn) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
 
 // Home page
 app.get('/home', (req, res) => {
@@ -24,17 +42,15 @@ app.get('/home', (req, res) => {
 });
 
 // Database page
-router.get('/database', async (req, res) => {
+app.get('/database', async (req, res) => {
     try {
-        // Replace 'your_table_name' with the actual name of your table
-        const [rows] = await pool.query('SELECT * FROM your_table_name');
+        const rows = await knex('your_table_name').select('*'); // Replace with your table name
         res.render('database', { pets: rows });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error retrieving all pets');
     }
 });
-
 
 // Info page
 app.get('/info', (req, res) => {
@@ -52,33 +68,30 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const user = await knex('your_table_name') // Replace 'your_table_name' with your actual table name
-        .where({
-            Username: req.body.username, 
-            Password: req.body.password,
-        })
-        .first();
+    try {
+        const user = await knex('users') // Replace 'users' with your actual user table name
+            .where({
+                Username: req.body.username, // Replace 'Username' with your actual username column name
+                Password: req.body.password  // Replace 'Password' with your actual password column name
+            })
+            .first();
 
-    if (user) {
-        // Set a cookie to indicate the user is logged in
-        res.cookie('loggedIn', 'yes');
-
-        res.redirect('/post');
-    } else {
-        // Display an error message on the login page
-        res.render('login', { error: 'Your username and/or password are incorrect.' });
-        // or
-        // res.send('Your username and/or password are incorrect.');
+        if (user) {
+            req.session.loggedIn = true; // Set session variable
+            res.redirect('/post');
+        } else {
+            res.render('login', { error: 'Invalid username or password.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred during the login process.');
     }
-
 });
 
-
 // PetofDay page
-
 app.get('/petofday', async (req, res) => {
     try {
-        const [rows] = await promisePool.query('SELECT * FROM pets ORDER BY RAND() LIMIT 1');//table name!!!!!!!!!!!!!!!!!!!!!!
+        const rows = await knex('pets').select('*').orderByRaw('RANDOM()').limit(1); // Adjust for your table
         const petOfTheDay = rows[0];
         res.render('petofday', { pet: petOfTheDay });
     } catch (error) {
@@ -87,43 +100,30 @@ app.get('/petofday', async (req, res) => {
     }
 });
 
-
-// Post page
-app.get('/post', (req, res) => {
+// Post page - Protected
+app.get('/post', ensureLoggedIn, (req, res) => {
     res.render('post');
 });
 
-app.post('/newpost', async (req, res) => {
-await knex('').insert({ //add table name here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    PetName: PetName,
-    Image:photo,
-    PetAge:PetAge,
-    PetReward:PetReward,
-    LastSeenZip:LastSeenZip,
-    LastSeenDate:LastSeenDate,
-    LastSeenDesc:LastSeenDesc
-    //the pet ID and the owner ID need to be figured out
-})
+app.post('/newpost', ensureLoggedIn, async (req, res) => {
+    // Insert new post, ensure your form fields match these keys
+    await knex('your_post_table_name').insert({
+        // Your columns and values go here
+    });
+    res.send('Post created successfully!');
+});
 
-res.send('Post created successfully!')
-})
 // Signup page
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-  //create account
-  app.post('/createaccount', async (req, res) => {
-    // Insert data into the userstorage table
-    await knex('userstorage').insert({ //add the table here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      Username: req.body.username,
-      Password: req.body.password,
+app.post('/createaccount', async (req, res) => {
+    await knex('userstorage').insert({
+        Username: req.body.username,
+        Password: req.body.password
     });
-    //send a response indicating success
     res.send('Account created successfully!');
-  });
+});
 
-  //this is the route for images being displayed on the website 
-app.use(express.static('public'));
-
-app.listen(port, () => console.log('My server is listening'));
+app.listen(port, () => console.log(`My server is listening on port ${port}`));
