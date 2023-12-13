@@ -43,6 +43,29 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
+app.post('/login', async (req, res) => {
+    const user = await knex('your_table_name') // Replace 'your_table_name' with your actual table name
+        .where({
+            Username: req.body.username, 
+            Password: req.body.password,
+        })
+        .first();
+
+    if (user) {
+        // Set a cookie to indicate the user is logged in
+        res.cookie('loggedIn', 'yes');
+
+        res.redirect('/post');
+    } else {
+        // Display an error message on the login page
+        res.render('login', { error: 'Your username and/or password are incorrect.' });
+        // or
+        // res.send('Your username and/or password are incorrect.');
+    }
+
+});
+
+
 // PetofDay page
 app.get('/petofday', (req, res) => {
     res.render('petofday');
@@ -53,6 +76,20 @@ app.get('/post', (req, res) => {
     res.render('post');
 });
 
+app.post('/newpost', async (req, res) => {
+await knex('').insert({ //add table name here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    PetName: PetName,
+    Image:photo,
+    PetAge:PetAge,
+    PetReward:PetReward,
+    LastSeenZip:LastSeenZip,
+    LastSeenDate:LastSeenDate,
+    LastSeenDesc:LastSeenDesc
+    //the pet ID and the owner ID need to be figured out
+})
+
+res.send('Post created successfully!')
+})
 // Signup page
 app.get('/signup', (req, res) => {
     res.render('signup');
@@ -62,5 +99,15 @@ app.get('/signup', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+  //create account
+  app.post('/createaccount', async (req, res) => {
+    // Insert data into the userstorage table
+    await knex('userstorage').insert({ //add the table here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      Username: req.body.username,
+      Password: req.body.password,
+    });
+    //send a response indicating success
+    res.send('Account created successfully!');
+  });
 
 app.listen(port, () => console.log('My server is listening'));
