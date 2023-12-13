@@ -27,14 +27,10 @@ app.get('/home', (req, res) => {
 });
 
 // Database page
-app.get('/database', async (req, res) => {
-    try {
-        const rows = await knex('your_table_name').select('*'); // Replace with your table name
-        res.render('database', { pets: rows });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error retrieving all pets');
-    }
+app.get('/database', (req, res) => {
+    knex.select().from("findingpetsdb").then(findingpetsdb => {
+        res.render('report', {fulldata: findingpetsdb});
+    });
 });
 
 // Info page
