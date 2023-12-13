@@ -20,12 +20,6 @@ app.set('views', path.join(__dirname, '/views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Session configuration
-app.use(session({
-    secret: 'your_secret_key', // replace with a real secret key
-    resave: false,
-    saveUninitialized: false
-}));
 
 // Authentication middleware
 function ensureLoggedIn(req, res, next) {
@@ -69,16 +63,15 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
-        const user = await knex('users') // Replace 'users' with your actual user table name
+        const user = await knex('users') // Replace with your actual user table name
             .where({
-                Username: req.body.username, // Replace 'Username' with your actual username column name
-                Password: req.body.password  // Replace 'Password' with your actual password column name
+                Username: req.body.username, // Ensure these match your form and database
+                Password: req.body.password
             })
             .first();
 
         if (user) {
-            req.session.loggedIn = true; // Set session variable
-            res.redirect('/post');
+            res.redirect('/post'); // Redirect to post page if credentials are correct
         } else {
             res.render('login', { error: 'Invalid username or password.' });
         }
@@ -87,6 +80,27 @@ app.post('/login', async (req, res) => {
         res.status(500).send('An error occurred during the login process.');
     }
 });
+
+// Post page
+app.get('/post', (req, res) => {
+    res.render('post');
+});
+
+
+app.post('/newpost', async (req, res) => {
+    // Insert new post, ensure your form fields match these keys
+    await knex('your_post_table_name').insert({
+        PetName: req.body.PetName,
+        Image: req.body.photo,
+        PetAge: req.body.PetAge,
+        PetReward: req.body.PetReward,
+        LastSeenZip: req.body.LastSeenZip,
+        LastSeenDate: req.body.LastSeenDate,
+        LastSeenDesc: req.body.LastSeenDesc//the pet ID and the owner ID, ownerfirstname, ownerphone need to be figured out  
+      });
+    res.send('Post created successfully!');
+});
+
 
 // PetofDay page
 app.get('/petofday', async (req, res) => {
@@ -100,18 +114,6 @@ app.get('/petofday', async (req, res) => {
     }
 });
 
-// Post page - Protected
-app.get('/post', ensureLoggedIn, (req, res) => {
-    res.render('post');
-});
-
-app.post('/newpost', ensureLoggedIn, async (req, res) => {
-    // Insert new post, ensure your form fields match these keys
-    await knex('your_post_table_name').insert({
-        // Your columns and values go here
-    });
-    res.send('Post created successfully!');
-});
 
 // Signup page
 app.get('/signup', (req, res) => {
