@@ -19,7 +19,7 @@ const knex = require('knex')({
 })
 
 // Home page
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     res.render('home');
 });
 
@@ -34,7 +34,7 @@ app.get('/info', (req, res) => {
 });
 
 // Landing page
-app.get('/landing', (req, res) => {
+app.get('/', (req, res) => {
     res.render('landing');
 });
 
