@@ -3,10 +3,10 @@ const session = require('express-session');
 const knex = require('knex')({
     client: 'pg',
     connection: {
-        host: process.env.RDS_HOSTNAME || 'localhost',
+        host: process.env.RDS_HOSTNAME || 'eventual enpoint',
         user: process.env.RDS_USERNAME || 'postgres',
-        password: process.env.RDS_PASSWORD || 'admin',
-        database: process.env.RDS_DB_NAME || 'bucket_list',
+        password: process.env.RDS_PASSWORD || '30Baseballs',
+        database: process.env.RDS_DB_NAME || 'findingpets',
         port: process.env.RDS_PORT || 5432
     }
 });
