@@ -21,15 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-// Authentication middleware
-function ensureLoggedIn(req, res, next) {
-    if (req.session.loggedIn) {
-        next();
-    } else {
-        res.redirect('/login');
-    }
-}
-
 // Home page
 app.get('/home', (req, res) => {
     res.render('home');
