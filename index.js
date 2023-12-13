@@ -76,6 +76,20 @@ app.get('/post', (req, res) => {
     res.render('post');
 });
 
+app.post('/newpost', async (req, res) => {
+await knex('').insert({ //add table name here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    PetName: PetName,
+    Image:photo,
+    PetAge:PetAge,
+    PetReward:PetReward,
+    LastSeenZip:LastSeenZip,
+    LastSeenDate:LastSeenDate,
+    LastSeenDesc:LastSeenDesc
+    //the pet ID and the owner ID need to be figured out
+})
+
+res.send('Post created successfully!')
+})
 // Signup page
 app.get('/signup', (req, res) => {
     res.render('signup');
