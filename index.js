@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-require('dotenv').config()
+require('dotenv').config();
 let knex = require('knex')({
     client: 'pg',
     connection: {
@@ -20,7 +20,7 @@ knex.raw('SELECT 1')
 
 const app = express();
 const path = require('path');
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
