@@ -23,4 +23,40 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+// Database page
+app.get('/database', (req, res) => {
+    res.render('database');
+});
+
+// Info page
+app.get('/info', (req, res) => {
+    res.render('info');
+});
+
+// Landing page
+app.get('/landing', (req, res) => {
+    res.render('landing');
+});
+
+// Login page
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+// PetofDay page
+app.get('/petofday', (req, res) => {
+    res.render('petofday');
+});
+
+// Post page
+app.get('/post', (req, res) => {
+    res.render('post');
+});
+
+// Signup page
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+
 app.listen(port, () => console.log('My server is listening'));
