@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Pets</title>
+</head>
+<body>
+    <h1>All Lost Pets</h1>
+    <% if (pets && pets.length > 0) { %>
+        <% pets.forEach(pet => { %>
+            <div>
+                <h2>Lost:</h2><br>
+                <img src="<%= pet.pictureUrl %>" alt="Photo of <%= pet.PetName %>"><br>
+                <p>Name: <%= pet.PetName %></p><br>
+                <p>Age: <%= pet.PetAge %></p><br>
+                <p>Reward: <%= pet.PetReward %></p><br>
+                <p>Location Last Seen: <%= pet.LastSeenZip %></p><br>
+                <p>Last seen date: <%= pet.LastSeenDate %></p><br>
+                <p>Notes: <%= pet.LastSeenDesc %></p><br>
+                <p>Contact: <%pet.OwnerFirstName%></p><br>
+                <p>Phone: <%pet.OwnerPhone%></p>
+            </div>
+            <hr>
+        <% }); %>
+    <% } else { %>
+        <p>No pets found.</p>
+    <% } %>
+</body>
+</html>

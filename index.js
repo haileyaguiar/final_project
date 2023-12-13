@@ -24,9 +24,17 @@ app.get('/home', (req, res) => {
 });
 
 // Database page
-app.get('/database', (req, res) => {
-    res.render('database');
+router.get('/database', async (req, res) => {
+    try {
+        // Replace 'your_table_name' with the actual name of your table
+        const [rows] = await pool.query('SELECT * FROM your_table_name');
+        res.render('database', { pets: rows });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving all pets');
+    }
 });
+
 
 // Info page
 app.get('/info', (req, res) => {
@@ -67,9 +75,18 @@ app.post('/login', async (req, res) => {
 
 
 // PetofDay page
-app.get('/petofday', (req, res) => {
-    res.render('petofday');
+
+app.get('/petofday', async (req, res) => {
+    try {
+        const [rows] = await promisePool.query('SELECT * FROM pets ORDER BY RAND() LIMIT 1');//table name!!!!!!!!!!!!!!!!!!!!!!
+        const petOfTheDay = rows[0];
+        res.render('petofday', { pet: petOfTheDay });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving the pet of the day');
+    }
 });
+
 
 // Post page
 app.get('/post', (req, res) => {

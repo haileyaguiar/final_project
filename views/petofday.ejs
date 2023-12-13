@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pet of the Day</title>
+</head>
+<body>
+    <h1>Pet of the Day</h1>
+    <% if (pet) { %>
+        <div>
+            <!-- The properties used here (like pet.name, pet.pictureUrl, pet.ownerName)
+                 should match the column names in your table -->
+            <h2>Lost:</h2>
+            <img src="<%= pet.pictureUrl %>">
+            <p>Name: <%= pet.PetName %></p>
+            <p>Age: <%= pet.PetAge %></p>
+            <p>Reward: <%= pet.PetReward %></p>
+            <p>Location Last Seen: <%= pet.LastSeenZip %></p>
+            <p>Last seen date: <%= pet.LastSeenDate %></p>
+            <p>Notes: <%= pet.LastSeenDesc %></p>
+            <p>Contact: <%pet.OwnerFirstName%></p><br>
+            <p>Phone: <%pet.OwnerPhone%></p>
+        </div>
+    <% } else { %>
+        <p>No pet to display today.</p>
+    <% } %>
+</body>
+</html>
