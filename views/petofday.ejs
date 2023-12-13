@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet of the Day</title>
+    <link rel="stylesheet" href="/content/css/styles.css">
 </head>
 <body>
-    <h1>Pet of the Day</h1>
-    <% if (pet) { %>
-        <div>
-            <!-- The properties used here (like pet.name, pet.pictureUrl, pet.ownerName)
-                 should match the column names in your table -->
-            <h2>Lost:</h2>
-            <img src="<%= pet.pictureUrl %>">
-            <p>Name: <%= pet.PetName %></p>
-            <p>Age: <%= pet.PetAge %></p>
-            <p>Reward: <%= pet.PetReward %></p>
-            <p>Location Last Seen: <%= pet.LastSeenZip %></p>
-            <p>Last seen date: <%= pet.LastSeenDate %></p>
-            <p>Notes: <%= pet.LastSeenDesc %></p>
-            <p>Contact: <%pet.OwnerFirstName%></p><br>
-            <p>Phone: <%pet.OwnerPhone%></p>
-        </div>
-    <% } else { %>
-        <p>No pet to display today.</p>
-    <% } %>
+    <h2>Pet of the Day</h2>
+    <div>
+        <p><b>Pet Name:</b> <%= petOfDay.PetName %></p>
+        <p><b>Pet Age:</b> <%= petOfDay.PetAge %></p>
+        <p><b>Pet Reward:</b> <%= petOfDay.PetReward %></p>
+        <p><b>Last Seen Zip:</b> <%= petOfDay.LastSeenZip %></p>
+        <p><b>Last Seen Date:</b> <%= petOfDay.LastSeenDate %></p>
+        <p><b>Last Seen Description:</b> <%= petOfDay.LastSeenDesc %></p>
+        <p><b>Owner First Name:</b> <%= petOfDay.OwnerFirstName %></p>
+        <p><b>Owner Phone:</b> <%= petOfDay.OwnerPhone %></p>
+        <p><b>Image:</b> <img src="<%= petOfDay.ImagePath %>" alt="<%= petOfDay.PetName %>"></p>
+    </div>
 </body>
 </html>
+
