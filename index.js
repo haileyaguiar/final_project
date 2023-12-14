@@ -90,12 +90,13 @@ app.post('/newpost', async (req, res) => {
     var OwnerID = maxOwnerID.max + 1;
 
     var maxPetID = await knex('findingpetsdb').max('PetID').first();
-    var OwnerID = maxPetID.max + 1;
+    var PetID = maxPetID.max + 1;
+
+    console.log(req.body)
     // Insert new post, ensure your form fields match these keys
     await knex('findingpetsdb').insert({
         PetName: req.body.PetName,
-        Image: req.body.photo,
-        PetAge: req.body.PetAge,
+        ImagePath: req.body.photo,
         PetReward: req.body.PetReward,
         LastSeenZip: req.body.LastSeenZip,
         LastSeenDate: req.body.LastSeenDate,
