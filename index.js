@@ -37,11 +37,25 @@ app.get('/home', (req, res) => {
 });
 
 // Database page
+// app.get('/database', (req, res) => {
+//     knex.select().from("findingpetsdb").then(findingpetsdb => {
+//     res.render('database', {fulldata: findingpetsdb});
+//     });
+// });
 app.get('/database', (req, res) => {
-    knex.select().from("findingpetsdb").then(findingpetsdb => {
-    res.render('database', {fulldata: findingpetsdb});
+    let query = knex.select().from("findingpetsdb");
+  
+    // Check if a zipcode filter is provided in the query parameters
+    if (req.query.zipcode) {
+      const zipcode = req.query.zipcode;
+      query = query.where("LastSeenZip", zipcode);
+    }
+  
+    query.then(findingpetsdb => {
+      res.render('database', { fulldata: findingpetsdb });
     });
-});
+  });
+  
 
 // Info page
 app.get('/info', (req, res) => {

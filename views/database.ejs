@@ -9,6 +9,11 @@
 <body>
     <label><b>All Pets:</b></label>
     <br><br> 
+    <!-- Add this code at the top, above the table -->
+    <label for="zipcodeFilter">Filter by Zipcode:</label>
+    <input type="text" id="zipcodeFilter" name="zipcodeFilter" placeholder="Enter Zipcode">
+    <button onclick="filterByZipcode()">Filter</button>
+    <br><br>
     <table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
         <thead style="background-color: cornflowerblue; color:white;">
             <tr>
@@ -50,5 +55,15 @@
             <% } %>
         </tbody> 
     </table>
+    <!-- Add this script at the bottom, after the table -->
+    <script>
+        function filterByZipcode() {
+        // Get the value entered in the zipcode input
+        var zipcode = document.getElementById("zipcodeFilter").value;
+    
+        // Redirect to a new URL with the filter parameter
+        window.location.href = "/database?zipcode=" + zipcode;
+        }
+    </script>
 </body>
 </html>
