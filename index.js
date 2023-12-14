@@ -120,14 +120,18 @@ app.post('/newpost', async (req, res) => {
 // PetofDay page
 app.get('/petofday', async (req, res) => {
     try {
-        // const rows = await knex('pets').select('*').orderByRaw('RANDOM()').limit(1); // Adjust for your table
-        const petOfTheDay = 0;
-        res.render('petofday', { pet: petOfTheDay });
+      // Fetch a random row from the database
+      const randomPet = await knex('findingpetsdb').orderByRaw('RANDOM()').limit(1);
+  
+      // Render the "petofday" EJS file with the random pet data
+      res.render('petofday', { randomPet: randomPet[0] });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error retrieving the pet of the day');
+      // Handle errors
+      console.error(error);
+      res.status(500).send('Internal Server Error');
     }
-});
+  });
+  
 
 
 // Signup page
