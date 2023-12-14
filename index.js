@@ -85,8 +85,14 @@ app.get('/post', (req, res) => {
 
 
 app.post('/newpost', async (req, res) => {
+
+    var maxOwnerID = await knex('findingpetsdb').max('OwnerID').first();
+    var OwnerID = maxOwnerID.max + 1;
+
+    var maxPetID = await knex('findingpetsdb').max('PetID').first();
+    var OwnerID = maxPetID.max + 1;
     // Insert new post, ensure your form fields match these keys
-    await knex('your_post_table_name').insert({
+    await knex('findingpetsdb').insert({
         PetName: req.body.PetName,
         Image: req.body.photo,
         PetAge: req.body.PetAge,
@@ -95,7 +101,16 @@ app.post('/newpost', async (req, res) => {
         LastSeenDate: req.body.LastSeenDate,
         LastSeenDesc: req.body.LastSeenDesc,
         OwnerFirstName: req.body.OwnerFirstName,
-        OwnerPhone: req.body.OwnerPhone//the pet ID and the owner ID need to be figured out  
+        OwnerLastName: req.body.OwnerLastName,
+        OwnerPhone: req.body.OwnerPhone,
+        OwnerEmail: req.body.OwnerEmail,
+        OwnerZip: req.body.OwnerZip,
+        OwnerID: OwnerID,
+        PetID: PetID
+        
+        
+        //the pet ID and the owner ID need to be figured out  
+
       });
     res.send('Post created successfully!');
 });
