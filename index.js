@@ -121,8 +121,8 @@ app.get('/signup', (req, res) => {
 
 app.post('/createaccount', async (req, res) => {
      await knex('usertable').insert({
-         Username: req.body.username,
-         Password: req.body.password
+         username: req.body.username,
+         password: req.body.password
      });
     res.send('Account created successfully!');
 });
