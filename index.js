@@ -8,7 +8,7 @@ let knex = require('knex')({
         user: process.env.RDS_USERNAME || 'postgres' ,
         password: process.env.RDS_PASSWORD || 'NT0t4cIV7eHQP4iTEY3R' ,
         database: process.env.RDS_DB_NAME || 'ebdb',
-        port: process.env.RDS_PORT || 5433,
+        port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectedUnauthorized: false} : false
     }
 });
@@ -60,10 +60,10 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
-        const user = await knex('users') // Replace with your actual user table name
+        const user = await knex('usertable') // Replace with your actual user table name
             .where({
-                Username: req.body.username, // Ensure these match your form and database
-                Password: req.body.password
+                username: req.body.username, // Ensure these match your form and database
+                password: req.body.password
             })
             .first();
 
