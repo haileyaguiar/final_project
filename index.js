@@ -117,10 +117,10 @@ app.get('/signup', (req, res) => {
 });
 
 app.post('/createaccount', async (req, res) => {
-    // await knex('userstorage').insert({
-    //     Username: req.body.username,
-    //     Password: req.body.password
-    // });
+     await knex('userstorage').insert({
+         Username: req.body.username,
+         Password: req.body.password
+     });
     res.send('Account created successfully!');
 });
 
