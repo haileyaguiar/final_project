@@ -8,7 +8,7 @@ let knex = require('knex')({
         user: process.env.RDS_USERNAME || 'postgres' ,
         password: process.env.RDS_PASSWORD || 'NT0t4cIV7eHQP4iTEY3R' ,
         database: process.env.RDS_DB_NAME || 'ebdb',
-        port: process.env.RDS_PORT || 5432,
+        port: process.env.RDS_PORT || 5433,
         ssl: process.env.DB_SSL ? {rejectedUnauthorized: false} : false
     }
 });
