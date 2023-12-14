@@ -13,6 +13,14 @@ let knex = require('knex')({
     }
 });
 
+const ENV_VARIABLES = {
+    dbHost: process.env.DATABASE_HOST || 'petsdb.cgrlbkhl90jg.us-east-1.rds.amazonaws.com',
+    dbUser: process.env.DATABASE_USER || 'postgres',
+    dbPassword: process.env.DATABASE_PASSWORD || 'NT0t4cIV7eHQP4iTEY3R',
+    dbName: process.env.DATABASE_NAME || 'ebdb',
+    appPort: process.env.PORT || 8080,
+};
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
@@ -23,7 +31,7 @@ knex.raw('SELECT 1')
 
 const app = express();
 const path = require('path');
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
@@ -160,5 +168,7 @@ app.post('/createaccount', async (req, res) => {
      });
     res.send('Account created successfully!');
 });
+
+const port = ENV_VARIABLES.appPort;
 
 app.listen(port, () => console.log(`My server is listening on port ${port}`));
