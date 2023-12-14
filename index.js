@@ -4,10 +4,10 @@ require('dotenv').config();
 let knex = require('knex')({
     client: 'pg',
     connection: {
-        host: process.env.RDS_HOSTNAME ,
-        user: process.env.RDS_USERNAME ,
-        password: process.env.RDS_PASSWORD ,
-        database: process.env.RDS_DB_NAME,
+        host: process.env.RDS_HOSTNAME || 'petsdb.cgrlbkhl90jg.us-east-1.rds.amazonaws.com' ,
+        user: process.env.RDS_USERNAME || 'postgres' ,
+        password: process.env.RDS_PASSWORD || 'NT0t4cIV7eHQP4iTEY3R' ,
+        database: process.env.RDS_DB_NAME || 'ebdb',
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectedUnauthorized: false} : false
     }
@@ -39,7 +39,7 @@ app.get('/home', (req, res) => {
 // Database page
 app.get('/database', (req, res) => {
     knex.select().from("findingpetsdb").then(findingpetsdb => {
-    res.render('report', {fulldata: findingpetsdb});
+    res.render('database', {fulldata: findingpetsdb});
     });
 });
 
