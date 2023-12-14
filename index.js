@@ -35,9 +35,9 @@ app.get('/home', (req, res) => {
 
 // Database page
 app.get('/database', (req, res) => {
-    // knex.select().from("findingpetsdb").then(findingpetsdb => {
-    //     res.render('report', {fulldata: findingpetsdb});
-    // });
+    knex.select().from("findingpetsdb").then(findingpetsdb => {
+    res.render('report', {fulldata: findingpetsdb});
+    });
 });
 
 // Info page
@@ -117,7 +117,7 @@ app.get('/signup', (req, res) => {
 });
 
 app.post('/createaccount', async (req, res) => {
-     await knex('userstorage').insert({
+     await knex('usertable').insert({
          Username: req.body.username,
          Password: req.body.password
      });
