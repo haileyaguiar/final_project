@@ -13,6 +13,9 @@ let knex = require('knex')({
     }
 });
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+
 knex.raw('SELECT 1')
   .then(() => console.log('Database connection successful'))
   .catch(err => console.error('Database connection failed', err));
