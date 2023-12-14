@@ -58,11 +58,11 @@
 <div class="container px-4 px-lg-5">
     <!-- Featured Project Row-->
     <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-        <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..."></div>
+        <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="<%= randomPet.ImagePath %>" alt="..."></div>
         <div class="col-xl-4 col-lg-5">
             <div class="featured-text text-center text-lg-left">
-                <h4>Shoreline</h4>
-                <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                <h4><%= randomPet.PetName %></h4>
+                <p class="text-black-50 mb-0"><%= randomPet.LastSeenDesc %></p>
             </div>
         </div>
     </div>
