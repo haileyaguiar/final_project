@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Pets</title>
-    <link rel="stylesheet" href="/content/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/landing.css">
 </head>
-<body>
+<body id="page-top" style="background-image: url('https://images.unsplash.com/photo-1545529468-42764ef8c85f?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; background-repeat: no-repeat; margin: 0; height: 100%;">
+        
+    <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/" style="color: black">Home</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/login" style="color: black">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/database">Database</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/petofday">Pet of Day!</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/info">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+
+<br> <br> <br>
     <label><b>All Pets:</b></label>
     <br><br> 
     <!-- Add this code at the top, above the table -->
@@ -65,5 +90,28 @@
         window.location.href = "/database?zipcode=" + zipcode;
         }
     </script>
+
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark" style="margin-top: auto;">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; PostMyPet</p>
+            </div>
+        </footer>
+    
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/javascript/landing.js"></script>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+
 </body>
+
+
+
+
 </html>
